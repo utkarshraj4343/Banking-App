@@ -3,6 +3,7 @@ import {ApolloServer} from "@apollo/server";
 import {expressMiddleware} from "@as-integrations/express5";
 import mongoose from "mongoose"
 import dotenv from "dotenv";
+import accountRoutes from "./routes/accountRoutes.js"
 // import cors from "cors";
 
 import { typeDefs, resolvers } from './graphql/schema.js';
@@ -23,8 +24,8 @@ const startServer = async () => {
     app.get('/', (req, res) => {
         res.send('GraphQL Server is running! Visit /graphql for the GraphQL playground.');
     });
-
-
+    // Integrate the account REST APT ROUTES 
+    app.use("/api/accounts", accountRoutes);
     app.use(
         '/graphql',
         expressMiddleware(server, {
